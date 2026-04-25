@@ -1,6 +1,7 @@
 .app-container {
   display: flex;
   height: 100vh;
+  background-color: #ecf0f1;
 }
 
 .main-content {
@@ -11,7 +12,8 @@
 
 .header {
   height: 60px;
-  background-color: #ecf0f1;
+  background-color: #ffffff;
+  margin: 5px;
 }
 
 .content {

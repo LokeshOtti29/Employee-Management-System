@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './sideview.css',
 })
 export class Sideview {
- items = ['Dashboard','Employees','Departments','Leaves']
+ items = ['Dashboard','My Profile','Employees','Departments','Leaves','Payroll']
 }
