@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Profile } from '../profile/profile';
 
 @Component({
   selector: 'app-contentpanel',
-  imports: [],
+  imports: [Profile],
   templateUrl: './contentpanel.html',
   styleUrl: './contentpanel.css',
 })
