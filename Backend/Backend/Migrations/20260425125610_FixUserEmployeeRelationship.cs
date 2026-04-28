@@ -39,7 +39,8 @@ namespace Backend.Migrations
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Users_Users_UsersID",
-                table: "Users",
+                table: "Users",chrome
+
                 column: "UsersID",
                 principalTable: "Users",
                 principalColumn: "ID");
