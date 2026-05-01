@@ -15,9 +15,7 @@ namespace Backend.Services
 
         public async Task<List<EmployeeResponseDto>> GetAllEmployees()
         {
-            return await _context.Employees.Include(e => e.Department)
-                .Select(e => new EmployeeResponseDto
-                {
+            return await _context.Employees.Select(e => new EmployeeResponseDto{
                     Id = e.Id,
                     Firstname = e.Firstname,
                     Lastname = e.Lastname,
@@ -30,5 +28,23 @@ namespace Backend.Services
                     ProfilePicture = e.ProfilePicture
                 }).ToListAsync();
         }
+
+        public async Task<EmployeeResponseDto?> GetEmployeeByID(int id)
+        {
+            return await _context.Employees.Where(e => e.Id == id).Select(e => new EmployeeResponseDto
+            {
+                Id = e.Id,
+                Firstname = e.Firstname,
+                Lastname = e.Lastname,
+                Email = e.Email,
+                Phone = e.Phone,
+                DepartmentName = e.Department.Name,
+                Designation = e.Designation,
+                DateOfJoining = e.DateOfJoining,
+                Status = e.Status,
+                ProfilePicture = e.ProfilePicture
+            }).FirstOrDefaultAsync();
+        }
+
     }
 }

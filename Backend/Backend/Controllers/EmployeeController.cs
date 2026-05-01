@@ -22,5 +22,14 @@ namespace Backend.Controllers
             var employees = await _services.GetAllEmployees();
             return Ok(employees);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EmployeeResponseDto>> GetEmployeeByID(int id)
+        {
+            var employee = await _services.GetEmployeeByID(id);
+            if (employee == null)
+                return NotFound();
+            return Ok(employee);
+        }
     }
 }
