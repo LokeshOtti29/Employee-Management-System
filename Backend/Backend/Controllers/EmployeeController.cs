@@ -56,7 +56,7 @@ namespace Backend.Controllers
                 var result = await _services.UpdateEmployee(id, payload);
                 if (!result)
                     return NotFound();
-                return NoContent();
+                return Ok("Updated successfully");
             }
             catch (KeyNotFoundException ex)
             {
@@ -69,7 +69,7 @@ namespace Backend.Controllers
             var result = await _services.DeleteEmployee(id);
             if (!result)
                 return NotFound();
-            return NoContent();
+            return Ok("Updated successfully");
         }
     }
 }
