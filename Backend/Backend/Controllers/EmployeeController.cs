@@ -69,7 +69,7 @@ namespace Backend.Controllers
             var result = await _services.DeleteEmployee(id);
             if (!result)
                 return NotFound();
-            return Ok("Updated successfully");
+            return Ok("Deleted successfully");
         }
     }
 }
