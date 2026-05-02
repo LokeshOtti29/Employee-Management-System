@@ -1,5 +1,7 @@
 ﻿using Backend.Data;
+using Backend.Dtos.Inputs;
 using Backend.Dtos.Outputs;
+using Backend.Models;
 using Backend.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +47,43 @@ namespace Backend.Services
                 ProfilePicture = e.ProfilePicture
             }).FirstOrDefaultAsync();
         }
+        public async Task<EmployeeResponseDto> CreateEmployee(CreateEmployeePayload payload)
+        {
+            var department = await _context.Departments.FindAsync(payload.DepartmentId);
 
+            if (department == null)
+                throw new KeyNotFoundException("Department not found");
+
+            var employee = new Employee
+            {
+                Firstname = payload.Firstname,
+                Lastname = payload.Lastname,
+                Email = payload.Email,
+                Phone = payload.Phone,
+                DepartmentId = payload.DepartmentId,
+                Designation = payload.Designation,
+                DateOfJoining = payload.DateOfJoining,
+                ProfilePicture = payload.ProfilePicture,
+                UserId = payload.UserId,       
+                Status = "Active"               
+            };
+
+            _context.Employees.Add(employee);
+            await _context.SaveChangesAsync();
+
+            return new EmployeeResponseDto
+            {
+                Id = employee.Id,
+                Firstname = employee.Firstname,
+                Lastname = employee.Lastname,
+                Email = employee.Email,
+                Phone = employee.Phone,
+                DepartmentName = department.Name,
+                Designation = employee.Designation,
+                DateOfJoining = employee.DateOfJoining,
+                Status = employee.Status,
+                ProfilePicture = employee.ProfilePicture
+            };
+        }
     }
 }

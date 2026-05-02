@@ -13,6 +13,7 @@
         public string Designation { get; set; } = string.Empty;
 
         public DateOnly DateOfJoining { get; set; }
+        public string ProfilePicture { get; set; } = string.Empty;
 
         public int UserId { get; set; }
     }

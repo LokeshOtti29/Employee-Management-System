@@ -1,4 +1,5 @@
-﻿using Backend.Dtos.Outputs;
+﻿using Backend.Dtos.Inputs;
+using Backend.Dtos.Outputs;
 
 namespace Backend.Services.Interfaces
 {
@@ -6,5 +7,6 @@ namespace Backend.Services.Interfaces
     {
         Task<List<EmployeeResponseDto>> GetAllEmployees();
         Task<EmployeeResponseDto?> GetEmployeeByID(int id);
+        Task<EmployeeResponseDto> CreateEmployee(CreateEmployeePayload payload);
     }
 }

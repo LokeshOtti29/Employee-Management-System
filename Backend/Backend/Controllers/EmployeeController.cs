@@ -1,4 +1,5 @@
-﻿using Backend.Dtos.Outputs;
+﻿using Backend.Dtos.Inputs;
+using Backend.Dtos.Outputs;
 using Backend.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,20 @@ namespace Backend.Controllers
             if (employee == null)
                 return NotFound();
             return Ok(employee);
+        }
+
+        [HttpPost]
+
+        public async Task<ActionResult<EmployeeResponseDto>> CreateEmployee(CreateEmployeePayload payload)
+        {
+            try
+            {
+                var employee = await _services.CreateEmployee(payload);
+                return Ok(employee);
+            }catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
