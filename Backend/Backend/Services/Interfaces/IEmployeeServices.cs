@@ -8,5 +8,6 @@ namespace Backend.Services.Interfaces
         Task<List<EmployeeResponseDto>> GetAllEmployees();
         Task<EmployeeResponseDto?> GetEmployeeByID(int id);
         Task<EmployeeResponseDto> CreateEmployee(CreateEmployeePayload payload);
+        Task<bool> UpdateEmployee(int id, UpdateEmployeePayload payload);
     }
 }

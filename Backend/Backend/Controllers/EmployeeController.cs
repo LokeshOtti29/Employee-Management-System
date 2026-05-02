@@ -41,7 +41,24 @@ namespace Backend.Controllers
             {
                 var employee = await _services.CreateEmployee(payload);
                 return Ok(employee);
-            }catch(KeyNotFoundException ex)
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateEmployee(int id, UpdateEmployeePayload payload)
+        {
+            try
+            {
+                var result = await _services.UpdateEmployee(id, payload);
+                if (!result)
+                    return NotFound();
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }

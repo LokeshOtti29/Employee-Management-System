@@ -85,5 +85,27 @@ namespace Backend.Services
                 ProfilePicture = employee.ProfilePicture
             };
         }
+        public async Task<bool> UpdateEmployee(int id, UpdateEmployeePayload payload)
+        {
+            var employee = await _context.Employees.FindAsync(id);
+            if(employee == null)
+            {
+                return false;
+            }
+            var department = await _context.Departments.FindAsync(payload.DepartmentId);
+            if(department == null)
+            {
+                return false;
+            }
+            employee.Firstname = payload.Firstname;
+            employee.Lastname = payload.Lastname;
+            employee.Email = payload.Email;
+            employee.Phone = payload.Phone;
+            employee.DepartmentId = payload.DepartmentId;
+            employee.Designation = payload.Designation;
+            employee.Status = payload.Status;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
