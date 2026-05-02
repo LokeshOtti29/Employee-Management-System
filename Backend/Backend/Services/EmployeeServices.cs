@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
-    public class EmployeeServices: IEmployeeServices
+    public class EmployeeServices : IEmployeeServices
     {
         public readonly AddDBContext _context;
         public EmployeeServices(AddDBContext context)
@@ -17,18 +17,19 @@ namespace Backend.Services
 
         public async Task<List<EmployeeResponseDto>> GetAllEmployees()
         {
-            return await _context.Employees.Select(e => new EmployeeResponseDto{
-                    Id = e.Id,
-                    Firstname = e.Firstname,
-                    Lastname = e.Lastname,
-                    Email = e.Email,
-                    Phone = e.Phone,
-                    DepartmentName = e.Department.Name,
-                    Designation = e.Designation,
-                    DateOfJoining = e.DateOfJoining,
-                    Status = e.Status,
-                    ProfilePicture = e.ProfilePicture
-                }).ToListAsync();
+            return await _context.Employees.Select(e => new EmployeeResponseDto
+            {
+                Id = e.Id,
+                Firstname = e.Firstname,
+                Lastname = e.Lastname,
+                Email = e.Email,
+                Phone = e.Phone,
+                DepartmentName = e.Department.Name,
+                Designation = e.Designation,
+                DateOfJoining = e.DateOfJoining,
+                Status = e.Status,
+                ProfilePicture = e.ProfilePicture
+            }).ToListAsync();
         }
 
         public async Task<EmployeeResponseDto?> GetEmployeeByID(int id)
@@ -64,8 +65,8 @@ namespace Backend.Services
                 Designation = payload.Designation,
                 DateOfJoining = payload.DateOfJoining,
                 ProfilePicture = payload.ProfilePicture,
-                UserId = payload.UserId,       
-                Status = "Active"               
+                UserId = payload.UserId,
+                Status = "Active"
             };
 
             _context.Employees.Add(employee);
@@ -88,12 +89,12 @@ namespace Backend.Services
         public async Task<bool> UpdateEmployee(int id, UpdateEmployeePayload payload)
         {
             var employee = await _context.Employees.FindAsync(id);
-            if(employee == null)
+            if (employee == null)
             {
                 return false;
             }
             var department = await _context.Departments.FindAsync(payload.DepartmentId);
-            if(department == null)
+            if (department == null)
             {
                 return false;
             }
@@ -104,6 +105,17 @@ namespace Backend.Services
             employee.DepartmentId = payload.DepartmentId;
             employee.Designation = payload.Designation;
             employee.Status = payload.Status;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> DeleteEmployee(int id)
+        {
+            var employee = await _context.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return false;
+            }
+            _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
             return true;
         }

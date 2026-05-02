@@ -63,5 +63,13 @@ namespace Backend.Controllers
                 return NotFound(ex.Message);
             }
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteEmployee(int id)
+        {
+            var result = await _services.DeleteEmployee(id);
+            if (!result)
+                return NotFound();
+            return NoContent();
+        }
     }
 }

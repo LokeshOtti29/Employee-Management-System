@@ -9,5 +9,6 @@ namespace Backend.Services.Interfaces
         Task<EmployeeResponseDto?> GetEmployeeByID(int id);
         Task<EmployeeResponseDto> CreateEmployee(CreateEmployeePayload payload);
         Task<bool> UpdateEmployee(int id, UpdateEmployeePayload payload);
+        Task<bool> DeleteEmployee(int id);
     }
 }
