@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AddDBContext>(options =>
 );
 builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ILeaveServices, LeaveServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
