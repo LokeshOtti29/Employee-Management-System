@@ -9,7 +9,7 @@ namespace Backend.Services
 {
     public class EmployeeServices : IEmployeeServices
     {
-        public readonly AddDBContext _context;
+        private readonly AddDBContext _context;
         public EmployeeServices(AddDBContext context)
         {
             _context = context;
