@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
 {
-    public class LeaveServices : ILeaveServices
+    public class LeaveServices :ILeaveServices
     {
-        public readonly AddDBContext _context;
+        private readonly AddDBContext _context;
         public LeaveServices(AddDBContext context)
         {
             _context = context;
@@ -33,7 +33,7 @@ namespace Backend.Services
                 .ToListAsync();
         }
 
-        public async Task<LeaveResponseDto?> GetLeaveByID(int id)
+        public async Task<LeaveResponseDto?> GetLeavesById(int id)
         {
             return await _context.Leaves
                 .Where(l => l.Id == id)
@@ -81,7 +81,7 @@ namespace Backend.Services
                 AppliedDate = leave.AppliedDate
             };
         }
-        public async Task<LeaveResponseDto> UpdateLeave(int id, UpdateLeavePayload payload)
+        public async Task<bool> UpdateLeave(int id, UpdateLeavePayload payload)
         {
             var leave = await _context.Leaves.FindAsync(id);
 
@@ -98,20 +98,21 @@ namespace Backend.Services
 
             await _context.SaveChangesAsync();
 
-            return new LeaveResponseDto
-            {
-                Id = leave.Id,
-                EmployeeId = leave.EmployeeId,
-                LeaveTypeId = leave.LeaveTypeId,
-                StartDate = leave.StartDate,
-                EndDate = leave.EndDate,
-                Reason = leave.Reason,
-                Status = leave.Status,
-                AppliedDate = leave.AppliedDate,
-                ApprovedBy = leave.ApprovedBy
-            };
+            //return new LeaveResponseDto
+            //{
+            //    Id = leave.Id,
+            //    EmployeeId = leave.EmployeeId,
+            //    LeaveTypeId = leave.LeaveTypeId,
+            //    StartDate = leave.StartDate,
+            //    EndDate = leave.EndDate,
+            //    Reason = leave.Reason,
+            //    Status = leave.Status,
+            //    AppliedDate = leave.AppliedDate,
+            //    ApprovedBy = leave.ApprovedBy
+            //};
+            return true;
         }
-        public async Task<LeaveResponseDto> ApproveLeave(int id, UpdateLeaveByManagerPayload payload)
+        public async Task<bool> UpdateLeaveByManager(int id, UpdateLeaveByManagerPayload payload)
         {
             var leave = await _context.Leaves.FindAsync(id);
             if (leave == null)
@@ -121,20 +122,21 @@ namespace Backend.Services
             leave.Status = payload.Status;
             leave.ApprovedBy = payload.ApprovedBy;
             await _context.SaveChangesAsync();
-            return new LeaveResponseDto
-            {
-                Id = leave.Id,
-                EmployeeId = leave.EmployeeId,
-                LeaveTypeId = leave.LeaveTypeId,
-                StartDate = leave.StartDate,
-                EndDate = leave.EndDate,
-                Reason = leave.Reason,
-                Status = leave.Status,
-                AppliedDate = leave.AppliedDate,
-                ApprovedBy = leave.ApprovedBy
-            };
+            //return new LeaveResponseDto
+            //{
+            //    Id = leave.Id,
+            //    EmployeeId = leave.EmployeeId,
+            //    LeaveTypeId = leave.LeaveTypeId,
+            //    StartDate = leave.StartDate,
+            //    EndDate = leave.EndDate,
+            //    Reason = leave.Reason,
+            //    Status = leave.Status,
+            //    AppliedDate = leave.AppliedDate,
+            //    ApprovedBy = leave.ApprovedBy
+            //};
+            return true;
         }
-        public async Task DeleteLeave(int id)
+        public async Task<bool> DeleteLeave(int id)
         {
             var leave = await _context.Leaves.FindAsync(id);
             if (leave == null)
@@ -143,6 +145,7 @@ namespace Backend.Services
                 throw new Exception("Only pending leaves can be deleted");
             _context.Leaves.Remove(leave);
             await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

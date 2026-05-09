@@ -6,8 +6,9 @@ namespace Backend.Services.Interfaces
     public interface IUserServices
     {
         Task<List<UserResponseDto>> GetAllUsers();
-        Task<UserResponseDto?> GetUserByID(int id);
-        Task<CreateUserPayload> CreateUser(CreateUserPayload payload);
 
+        Task<UserResponseDto?> GetUserByID(int id);
+
+        Task<UserResponseDto> CreateUser(CreateUserPayload payload);
     }
 }
