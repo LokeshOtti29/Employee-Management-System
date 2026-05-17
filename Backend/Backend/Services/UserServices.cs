@@ -35,29 +35,5 @@ namespace Backend.Services
                 RoleName = u.Role.Name
             }).FirstOrDefaultAsync();
         }
-        public async Task<UserResponseDto> CreateUser(CreateUserPayload payload)
-        {
-            var role = await _context.Roles.FindAsync(payload.RoleId);
-            if(role == null)
-            {
-                throw new KeyNotFoundException("Role not found");
-            }
-            var user = new Users
-            {
-                name = payload.Name,
-                email = payload.Email,
-                password = payload.Password,
-                RoleId = payload.RoleId
-            };
-            _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return new UserResponseDto
-            {
-                Id = user.ID,
-                Name = user.name,
-                Email = user.email,
-                RoleName = role.Name
-            };
-        }
     }
 }

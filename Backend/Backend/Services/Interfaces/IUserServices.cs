@@ -9,6 +9,5 @@ namespace Backend.Services.Interfaces
 
         Task<UserResponseDto?> GetUserByID(int id);
 
-        Task<UserResponseDto> CreateUser(CreateUserPayload payload);
     }
 }

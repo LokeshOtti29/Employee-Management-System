@@ -31,18 +31,6 @@ namespace Backend.Controllers
                 return NotFound();
             return Ok(user);
         }
-        [HttpPost]
-        public async Task<ActionResult<UserResponseDto>> CreateUser(CreateUserPayload payload)
-        {
-            try
-            {
-                var user = await _service.CreateUser(payload);
-                return Ok(user);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
+        
     }
 }
