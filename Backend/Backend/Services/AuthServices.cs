@@ -64,8 +64,7 @@ namespace Backend.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name,user.name),
-                new Claim(ClaimTypes.NameIdentifier,user.ID.ToString()),
-                new Claim(ClaimTypes.)
+                new Claim(ClaimTypes.NameIdentifier,user.ID.ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<String>("AppSettings:Token")!));
 
