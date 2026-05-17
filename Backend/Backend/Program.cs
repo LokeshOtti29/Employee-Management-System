@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AddDBContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
+builder.Services.AddScoped<IAuthServices, AuthServices>();
 builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ILeaveServices, LeaveServices>();
