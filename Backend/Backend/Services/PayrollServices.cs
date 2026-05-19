@@ -30,7 +30,7 @@ namespace Backend.Services
                 GeneratedDate = p.GeneratedDate
             }).ToListAsync();
         }
-        public async Task<PayrollResponseDto?> GetPayrollByID(int id)
+        public async Task<PayrollResponseDto?> GetPayrollById(int id)
         {
             return await _context.Payrolls.Where(p => p.Id == id).Select(p => new PayrollResponseDto
             {

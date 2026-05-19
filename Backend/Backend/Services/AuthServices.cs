@@ -36,7 +36,9 @@ namespace Backend.Services
                 .HashPassword(user, payload.Password);
 
             user.name = payload.Name;
+            user.email = payload.Email;
             user.password = hashedPassword;
+            user.RoleId = payload.RoleId;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
